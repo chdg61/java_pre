@@ -4,7 +4,7 @@
 // @author      chdg61
 // @description Сворачивался pre
 // @include     *
-// @version     1/0
+// @version     1.0.1
 // @grant       none
 // ==/UserScript==
 
@@ -26,15 +26,26 @@
 
     function action_pre(){
         var all_pre = window.document.getElementsByTagName("PRE");
+        var div_visual_editor = null;
         for(var i =0; i < all_pre.length; i++){
             if(!all_pre[i].action_pre){
+                if(div_visual_editor === null){
+                    div_visual_editor = window.document.querySelector("div.bxce") || false;
+                    if(all_pre[i].compareDocumentPosition(div_visual_editor) & 8){
+                        continue;
+                    }
+                }else if(div_visual_editor !== false){
+                    if(all_pre[i].compareDocumentPosition(div_visual_editor) & 8){
+                        continue;
+                    }
+                }
                 all_pre[i].innerHTML = all_pre[i].innerHTML.replace(/^(.*)$/img,action_line);
+                all_pre[i].style.background = "white";
+                all_pre[i].style.zIndex = 1000;
+                all_pre[i].style.position = "relative";
+                all_pre[i].style.border = "2px dotted red";
+                all_pre[i].style.padding = "5px";
             }
-            all_pre[i].style.background = "white";
-            all_pre[i].style.zIndex = 1000;
-            all_pre[i].style.position = "relative";
-            all_pre[i].style.border = "2px dotted red";
-            all_pre[i].style.padding = "5px";
 
             all_pre[i].action_pre = true;
         }
