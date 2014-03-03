@@ -31,10 +31,10 @@
             if(!all_pre[i].action_pre){
                 if(div_visual_editor === null){
                     div_visual_editor = window.document.querySelector("div.bxce") || false;
-                    if(all_pre[i].compareDocumentPosition(div_visual_editor) & 8){
+                    if(div_visual_editor && all_pre[i].compareDocumentPosition(div_visual_editor) & 8){
                         continue;
                     }
-                }else if(div_visual_editor !== false){
+                }else if(div_visual_editor !== false && div_visual_editor !== null){
                     if(all_pre[i].compareDocumentPosition(div_visual_editor) & 8){
                         continue;
                     }
